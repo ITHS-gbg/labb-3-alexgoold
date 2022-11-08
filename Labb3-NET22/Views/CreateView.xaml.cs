@@ -44,18 +44,20 @@ namespace Labb3_NET22.Views
 
         private void AddQuestionButton_Click(object sender, RoutedEventArgs e)
         {
-            if (quizHasTitle && Question.Text != "" && radioButtonisChecked)
-            {
-                QuizToSave.AddQuestion(Question.Text, CorrectAnswer, Answer1.Text, Answer2.Text, Answer3.Text, Answer4.Text);
-                EmptyTextFields();
-            }
             if (Title.Text != "" && quizHasTitle == false)
             {
                 var quizWithTitle = new Quiz(Title.Text);
                 QuizToSave = quizWithTitle;
                 quizHasTitle = true;
             }
-
+            if (quizHasTitle && Question.Text != "" && radioButtonisChecked && Answer1.Text != "" &&
+                Answer2.Text != "" && Answer3.Text != "" && Answer4.Text != "")
+            {
+                QuizToSave.AddQuestion(Question.Text, CorrectAnswer, Answer1.Text, Answer2.Text, Answer3.Text,
+                Answer4.Text);
+                EmptyTextFields();
+                FinaliseAndSaveButton.IsEnabled = true;
+            }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)

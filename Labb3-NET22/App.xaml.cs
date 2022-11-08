@@ -29,7 +29,7 @@ namespace Labb3_NET22
 
         protected override void OnStartup(StartupEventArgs e)
         {
-
+            _quizManager = new QuizManager();
             _navigationManager.CurrentViewModel = new MenuViewModel(_navigationManager, _quizManager);
             var rootWindow = new RootWindow { DataContext = new ViewModelBase(_navigationManager, _quizManager) };
             rootWindow.Show();

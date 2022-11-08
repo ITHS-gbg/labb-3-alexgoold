@@ -33,12 +33,24 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
-            if( QuestionText.Text != "")
+
+            if (QuestionText.Text != "")
+            {
                 SetInitialQuiz();
+            }
         }
 
+        public void EnableButtons()
+        {
+            NextQuestion.IsEnabled = true;
+            Option0.IsEnabled = true;
+            Option1.IsEnabled = true;
+            Option2.IsEnabled = true;
+            Option3.IsEnabled = true;
+        }
         public void SetInitialQuiz()
         {
+            EnableButtons();
             _quizManager.LoadQuiz();
 
             ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
@@ -106,7 +118,7 @@ namespace Labb3_NET22.Views
             }
         }
 
-        private void LoadQuizButton_Click(object sender, RoutedEventArgs e)
+        private void LoadQuizFromFileButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -120,6 +132,21 @@ namespace Labb3_NET22.Views
                 _quizManager.CurrentQuiz = new Quiz(fileName);
                 SetInitialQuiz();
             }
+        }
+
+        private void LoadRandomQuizButton_Click(object sender, RoutedEventArgs e)
+        {
+            _quizManager.CheckForQuizes();
+            var ListOfQuizes = _quizManager.QuizList;
+            var lengthOfList = _quizManager.QuizList.Count;
+            var randomQ = new Random().Next(0, lengthOfList);
+            _quizManager.CurrentQuiz = _quizManager.QuizList[randomQ];
+            ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
+            TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
+            QuestionNumber = 1;
+            Score = 0;
+            ScoreText.Text = Score.ToString();
+            UpdateQuestionAndAnswers();
         }
     }
 }

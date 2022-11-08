@@ -66,6 +66,7 @@
             Add Question
         </Button>
         <Button
+            IsEnabled="False"
             Name="FinaliseAndSaveButton"
             Grid.Row="4"
             Grid.Column="2"
