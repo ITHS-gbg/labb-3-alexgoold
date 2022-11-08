@@ -8,5 +8,25 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid />
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Image 
+            Grid.RowSpan="6"
+            Grid.ColumnSpan="3"
+            Stretch="Fill"
+            Opacity="0.2"
+            Margin="20,20,20,20"
+            Source="\Resources/QmarkTornado.png"></Image>
+        </Grid>
 </UserControl>

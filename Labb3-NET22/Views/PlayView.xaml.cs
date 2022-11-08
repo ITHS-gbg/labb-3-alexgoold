@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Labb3_NET22.DataModels;
 using Labb3_NET22.Managers;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace Labb3_NET22.Views
 {
@@ -30,9 +33,12 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
+            if( QuestionText.Text != "")
+                SetInitialQuiz();
+        }
 
-            _quizManager.CurrentQuiz = new Quiz("bigQuiz");
-
+        public void SetInitialQuiz()
+        {
             _quizManager.LoadQuiz();
 
             ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
@@ -41,7 +47,6 @@ namespace Labb3_NET22.Views
             Score = 0;
             ScoreText.Text = Score.ToString();
             UpdateQuestionAndAnswers();
-            
         }
 
         public void UpdateQuestionAndAnswers()
@@ -52,6 +57,7 @@ namespace Labb3_NET22.Views
             Answer2.Foreground = new SolidColorBrush(Colors.Black);
             Answer3.Foreground = new SolidColorBrush(Colors.Black);
             Answer4.Foreground = new SolidColorBrush(Colors.Black);
+            QuestionText.Foreground = new SolidColorBrush(Colors.Black);
             QuestionText.Text = ActiveQuestion.Statement;
             Answer1.Text = ActiveQuestion.Answers[0];
             Answer2.Text = ActiveQuestion.Answers[1];
@@ -100,5 +106,20 @@ namespace Labb3_NET22.Views
             }
         }
 
+        private void LoadQuizButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            openFileDialog.Filter = "Json Files (*.json)|*.json";
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+                var FilePath = openFileDialog.FileName;
+
+                 var fileName = System.IO.Path.GetFileName(FilePath);
+                _quizManager.CurrentQuiz = new Quiz(fileName);
+                SetInitialQuiz();
+            }
+        }
     }
 }

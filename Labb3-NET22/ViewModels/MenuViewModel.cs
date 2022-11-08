@@ -13,11 +13,13 @@ class MenuViewModel:ObservableObject
 
 
     public RelayCommand NavigatePlayCommand { get; }
+    public RelayCommand NavigateCreateCommand { get; }
 
         public MenuViewModel(NavigationManager navigationManager, QuizManager quizManager)
         {
             _navigationManager = navigationManager;
             NavigatePlayCommand = new RelayCommand(() => _navigationManager.CurrentViewModel = new PlayViewModel(_navigationManager, _quizManager));
+            NavigateCreateCommand = new RelayCommand(() => _navigationManager.CurrentViewModel = new CreateViewModel(_navigationManager, _quizManager));
         }
 
 }

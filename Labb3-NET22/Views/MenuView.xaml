@@ -52,7 +52,8 @@
             Grid.Row="4" 
             Grid.Column="1" 
             Margin="40,10"  
-            Name="CreateButton" 
+            Name="CreateButton"
+            Command="{Binding NavigateCreateCommand}"
             >Create</Button>
     </Grid>
 </UserControl>
