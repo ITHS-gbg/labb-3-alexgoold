@@ -33,6 +33,7 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
+            _quizManager.CheckForQuizes();
 
             if (QuestionText.Text != "")
             {
@@ -136,7 +137,6 @@ namespace Labb3_NET22.Views
 
         private void LoadRandomQuizButton_Click(object sender, RoutedEventArgs e)
         {
-            _quizManager.CheckForQuizes();
             var ListOfQuizes = _quizManager.QuizList;
             var lengthOfList = _quizManager.QuizList.Count;
             var randomQ = new Random().Next(0, lengthOfList);
