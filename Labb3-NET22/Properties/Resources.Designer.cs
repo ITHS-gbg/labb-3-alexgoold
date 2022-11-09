@@ -63,6 +63,16 @@ namespace Labb3_NET22.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        public static byte[] General_Trivia {
+            get {
+                object obj = ResourceManager.GetObject("General_Trivia", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         public static byte[] QmarkTornado {
             get {
                 object obj = ResourceManager.GetObject("QmarkTornado", resourceCulture);

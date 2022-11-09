@@ -40,6 +40,7 @@
             Load From File
         </Button>
         <Button
+            IsEnabled="False"
             Name="LoadRandomQuizButton"
             Grid.Row="0"
             Margin="100,0,50,50"

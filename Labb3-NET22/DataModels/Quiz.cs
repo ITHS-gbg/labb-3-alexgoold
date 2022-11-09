@@ -38,7 +38,11 @@ public class Quiz
     {
         var newQuestion = new Question(statement,correctAnswer,answers);
         _questions = _questions.Append(newQuestion);
-        //throw new NotImplementedException("Question need to be instantiated and added to list of questions here!");
+    }
+
+    public void AddQuestion(Question question)
+    {
+        _questions = _questions.Append(question);
     }
     public void RemoveQuestion(int index)
     {
@@ -49,7 +53,13 @@ public class Quiz
         _questions = removedQuestions;
     }
 
-
-
-    
+    public override string ToString()
+    {
+        if (Title.Contains(".json"))
+        {
+            var title = Title.Split('.');
+            return title[0];
+        }
+        return Title;
+    }
 }

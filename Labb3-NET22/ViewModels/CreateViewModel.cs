@@ -15,10 +15,7 @@ namespace Labb3_NET22.ViewModels
         private NavigationManager _navigationManager;
         private QuizManager _quizManager;
 
-        private Quiz _quiz;
-
         public RelayCommand NavigateMenuCommand { get; }
-
 
         public CreateViewModel(NavigationManager navigationManager, QuizManager quizManager)
         {

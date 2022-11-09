@@ -9,16 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\General Trivia.json" />
     <None Remove="Resources\QmarkTornado.png" />
     <None Remove="Resources\Questionmarks.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="JsonNet.ContractResolvers" Version="2.0.0" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\General Trivia.json" />
     <Resource Include="Resources\QmarkTornado.png" />
   </ItemGroup>
 

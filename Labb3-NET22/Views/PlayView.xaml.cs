@@ -33,11 +33,11 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
+            _quizManager.CreateDefaultQuiz();
             _quizManager.CheckForQuizes();
-
-            if (QuestionText.Text != "")
+            if (_quizManager.QuizList.Count > 0)
             {
-                SetInitialQuiz();
+                LoadRandomQuizButton.IsEnabled = true;
             }
         }
 
@@ -51,8 +51,6 @@ namespace Labb3_NET22.Views
         }
         public void SetInitialQuiz()
         {
-            EnableButtons();
-            _quizManager.LoadQuiz();
 
             ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
             TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
@@ -64,6 +62,7 @@ namespace Labb3_NET22.Views
 
         public void UpdateQuestionAndAnswers()
         {
+            EnableButtons();
             QuestionNumberInfo.Text = $"Question {QuestionNumber} of {TotalQuestions}";
             CorrectOrNot.Text = String.Empty;
             Answer1.Foreground = new SolidColorBrush(Colors.Black);
@@ -121,6 +120,8 @@ namespace Labb3_NET22.Views
 
         private void LoadQuizFromFileButton_Click(object sender, RoutedEventArgs e)
         {
+            JsonSerializerSettings settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             openFileDialog.Filter = "Json Files (*.json)|*.json";
@@ -129,8 +130,13 @@ namespace Labb3_NET22.Views
 
                 var FilePath = openFileDialog.FileName;
 
-                 var fileName = System.IO.Path.GetFileName(FilePath);
+                var fileName = System.IO.Path.GetFileName(FilePath);
                 _quizManager.CurrentQuiz = new Quiz(fileName);
+
+                string jsonstring = File.ReadAllText(FilePath);
+
+                _quizManager.CurrentQuiz = JsonConvert.DeserializeObject<Quiz>(jsonstring, settings);
+
                 SetInitialQuiz();
             }
         }
@@ -141,11 +147,7 @@ namespace Labb3_NET22.Views
             var lengthOfList = _quizManager.QuizList.Count;
             var randomQ = new Random().Next(0, lengthOfList);
             _quizManager.CurrentQuiz = _quizManager.QuizList[randomQ];
-            ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
-            TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
-            QuestionNumber = 1;
-            Score = 0;
-            ScoreText.Text = Score.ToString();
+            SetInitialQuiz();
             UpdateQuestionAndAnswers();
         }
     }

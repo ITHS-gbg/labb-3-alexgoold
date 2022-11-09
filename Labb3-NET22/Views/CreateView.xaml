@@ -10,44 +10,115 @@
     mc:Ignorable="d">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Image 
+        <Image
             Grid.RowSpan="6"
             Grid.ColumnSpan="3"
-            Stretch="Fill"
-            Opacity="0.2"
             Margin="20,20,20,20"
-            Source="\Resources/QmarkTornado.png"></Image>
-        <TextBlock 
-            Grid.Row="0" 
-            Grid.Column="1" 
-            Grid.RowSpan="2" 
-            TextAlignment="Center"
+            Opacity="0.2"
+            Source="\Resources/QmarkTornado.png"
+            Stretch="Fill" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            FontFamily="Bauhaus 93"
             FontSize="60"
-            FontFamily="Bauhaus 93" Foreground="Black" >Add Quiz</TextBlock>
-        <TextBlock Margin="30,30,170,20" Grid.Row="1" TextAlignment="Center" Text="Title:" FontSize="25"></TextBlock>
-        <TextBlock Margin="10,30,80,20" Grid.Row="1" Grid.Column="1" Text="Question:" TextAlignment="Left" FontSize="25"></TextBlock>
-        <TextBlock Grid.Row="2" Grid.RowSpan="2" Margin="20,50,20,10" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" Text="Type in your answers in the boxes on the right and check the toggle for the correct answer"></TextBlock>
-        <TextBox Name="Title" Grid.Row="1" Margin="100,30,10,20" FontSize="25" Text="" ></TextBox>
-        <TextBox Name="Question" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="130,30,40,70" FontSize="18" TextWrapping="Wrap" Text="" ></TextBox>
-        <TextBox Name="Answer1" Grid.Row="2" Grid.Column="1" Margin="30,40,25,0"/>
-        <TextBox Name="Answer2" Grid.Row="3" Grid.Column="1" Margin="30,40,25,0"/>
-        <TextBox Name="Answer3" Grid.Row="3" Grid.Column="2" Margin="30,40,25,0"/>
-        <TextBox Name="Answer4" Grid.Row="2" Grid.Column="2" Margin="30,40,25,0"/>
-        <RadioButton Name="RadioButton0"  Grid.Row="2" Grid.Column="1" Margin="0,60,240,0" Checked="RadioButton_Checked" />
-        <RadioButton Name="RadioButton1" Grid.Row="3" Grid.Column="1" Margin="0,60,240,0" Checked="RadioButton_Checked" />
-        <RadioButton Name="RadioButton2" Grid.Row="2" Grid.Column="2" Margin="0,60,240,0" Checked="RadioButton_Checked" />
-        <RadioButton Name="RadioButton3" Grid.Row="3" Grid.Column="2" Margin="0,60,240,0" Checked="RadioButton_Checked" />
+            Foreground="Black"
+            TextAlignment="Center">
+            Add Quiz
+        </TextBlock>
+        <TextBlock
+            Grid.Row="1"
+            Margin="30,30,170,20"
+            FontSize="25"
+            Text="Title:"
+            TextAlignment="Center" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10,30,80,20"
+            FontSize="25"
+            Text="Question:"
+            TextAlignment="Left" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Margin="20,50,20,10"
+            FontSize="20"
+            Text="Type in your answers in the boxes on the right and check the toggle for the correct answer"
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
+        <TextBox
+            Name="Title"
+            Grid.Row="1"
+            Margin="100,30,10,20"
+            FontSize="25"
+            Text="" />
+        <TextBox
+            Name="Question"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="130,30,40,70"
+            FontSize="18"
+            Text=""
+            TextWrapping="Wrap" />
+        <TextBox
+            Name="Answer1"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="30,40,25,0" />
+        <TextBox
+            Name="Answer2"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="30,40,25,0" />
+        <TextBox
+            Name="Answer3"
+            Grid.Row="3"
+            Grid.Column="2"
+            Margin="30,40,25,0" />
+        <TextBox
+            Name="Answer4"
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="30,40,25,0" />
+        <RadioButton
+            Name="RadioButton0"
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="0,60,240,0"
+            Checked="RadioButton_Checked" />
+        <RadioButton
+            Name="RadioButton1"
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="0,60,240,0"
+            Checked="RadioButton_Checked" />
+        <RadioButton
+            Name="RadioButton2"
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="0,60,240,0"
+            Checked="RadioButton_Checked" />
+        <RadioButton
+            Name="RadioButton3"
+            Grid.Row="3"
+            Grid.Column="2"
+            Margin="0,60,240,0"
+            Checked="RadioButton_Checked" />
 
         <Button
             Name="MenuButton"
@@ -62,15 +133,17 @@
             Grid.Row="4"
             Grid.Column="1"
             Grid.ColumnSpan="2"
-            Margin="180,20,180,30" Click="AddQuestionButton_Click">
+            Margin="180,20,180,30"
+            Click="AddQuestionButton_Click">
             Add Question
         </Button>
         <Button
-            IsEnabled="False"
             Name="FinaliseAndSaveButton"
             Grid.Row="4"
             Grid.Column="2"
-            Margin="150,40,5,5" Click="FinaliseAndSaveButton_Click">
+            Margin="150,40,5,5"
+            Click="FinaliseAndSaveButton_Click"
+            IsEnabled="False">
             Finalise and Save
         </Button>
     </Grid>
