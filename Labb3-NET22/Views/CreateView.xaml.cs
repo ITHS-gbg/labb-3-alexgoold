@@ -74,10 +74,10 @@ namespace Labb3_NET22.Views
             }
         }
 
-        private void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
+        private async void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
         {
             _quizManager.CurrentQuiz = QuizToSave;
-            _quizManager.SaveQuiz();
+            await _quizManager.SaveQuiz();
             Title.Text = String.Empty;
             EmptyTextFields();
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using JsonNet.ContractResolvers;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -29,22 +30,28 @@ public class QuizManager
 
     }
 
-    public void SaveQuiz()
+    public async Task SaveQuiz()
     {
+        var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" + CurrentQuiz.Title + ".json");
 
-        var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ @"\Quizes\"+ CurrentQuiz.Title + ".json");
+        if (CurrentQuiz.Title.Contains(".json"))
+        {
+            FilePath =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" +
+                             CurrentQuiz.Title);
+        }
 
         var jsonstring = JsonConvert.SerializeObject(CurrentQuiz);
 
         using StreamWriter sw = new StreamWriter(FilePath);
 
-        sw.WriteLine(jsonstring);
+        await sw.WriteLineAsync(jsonstring);
+        
 
     }
 
     public void CheckForQuizes()
     {
-
         var localAppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ @"\Quizes");
         if (!File.Exists(localAppFolder))
         {

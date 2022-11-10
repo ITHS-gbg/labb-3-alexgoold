@@ -51,13 +51,20 @@ namespace Labb3_NET22.Views
         }
         public void SetInitialQuiz()
         {
-
-            ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
-            TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
-            QuestionNumber = 1;
-            Score = 0;
-            ScoreText.Text = Score.ToString();
-            UpdateQuestionAndAnswers();
+            if (_quizManager.CurrentQuiz.Questions.Count() != 0)
+            {
+                ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
+                TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
+                QuestionNumber = 1;
+                Score = 0;
+                ScoreText.Text = Score.ToString();
+                UpdateQuestionAndAnswers();
+            }
+            else
+            {
+                MessageBox.Show("There are no questions in that quiz! Try another!", "No Questions",
+                    MessageBoxButton.OK);
+            }
         }
 
         public void UpdateQuestionAndAnswers()
@@ -113,15 +120,15 @@ namespace Labb3_NET22.Views
             }
             else
             {
-                QuestionText.Foreground = new SolidColorBrush(Colors.Red);
-                QuestionText.Text = "NO MORE QUESTIONS!";
+                var quizFinshedText = $"Quiz finished\nYou scored {Score}/{TotalQuestions}";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBox.Show(quizFinshedText, "Results", button);
             }
         }
 
-        private void LoadQuizFromFileButton_Click(object sender, RoutedEventArgs e)
+        private async void LoadQuizFromFileButton_Click(object sender, RoutedEventArgs e)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             openFileDialog.Filter = "Json Files (*.json)|*.json";
@@ -133,7 +140,7 @@ namespace Labb3_NET22.Views
                 var fileName = System.IO.Path.GetFileName(FilePath);
                 _quizManager.CurrentQuiz = new Quiz(fileName);
 
-                string jsonstring = File.ReadAllText(FilePath);
+                string jsonstring = await File.ReadAllTextAsync(FilePath);
 
                 _quizManager.CurrentQuiz = JsonConvert.DeserializeObject<Quiz>(jsonstring, settings);
 
@@ -148,7 +155,6 @@ namespace Labb3_NET22.Views
             var randomQ = new Random().Next(0, lengthOfList);
             _quizManager.CurrentQuiz = _quizManager.QuizList[randomQ];
             SetInitialQuiz();
-            UpdateQuestionAndAnswers();
         }
     }
 }

@@ -171,6 +171,7 @@
             Command="{Binding NavigateMenuCommand}">
             Main Menu
         </Button>
+
         <Button
             Name="NextQuestion"
             Grid.Row="5"

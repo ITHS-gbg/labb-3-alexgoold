@@ -33,6 +33,7 @@ public class Quiz
         var randomQuestion = Questions.ElementAt(randomElement);
         ElementOfRandomQuestion = randomElement;
         return randomQuestion;
+
     }
     public void AddQuestion(string statement, int correctAnswer, params string[] answers)
     {
@@ -51,6 +52,12 @@ public class Quiz
         var removedQuestions = _questions.Where(q => q != questionToRemove);
 
         _questions = removedQuestions;
+    }
+
+    public void UpdateQuestion(Question question, int index)
+    {
+        RemoveQuestion(index);
+        AddQuestion(question);
     }
 
     public override string ToString()

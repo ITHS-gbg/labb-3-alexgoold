@@ -23,6 +23,14 @@ namespace Labb3_NET22.Views
     public partial class EditView : UserControl
     {
         private QuizManager _quizManager = new QuizManager();
+
+        Quiz QuizToSave = new Quiz();
+        private Question SelectedQuestion { get; set; }
+        public bool radioButtonisChecked = false;
+        private int CorrectAnswer { get; set; }
+        private int SelectedQuestionIndex { get; set; }
+        public bool quizHasTitle = false;
+        
         public EditView()
         {
             InitializeComponent();
@@ -31,14 +39,32 @@ namespace Labb3_NET22.Views
             QuizBox.ItemsSource = _quizManager.QuizList;
         }
 
+        public void EmptyTextFields()
+        {
+            Question.Text = String.Empty;
+            Answer1.Text = String.Empty;
+            Answer2.Text = String.Empty;
+            Answer3.Text = String.Empty;
+            Answer4.Text = String.Empty;
+        }
+
         private void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+          throw new NotImplementedException();
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            radioButtonisChecked = true;
+            RadioButton radioButton = e.Source as RadioButton;
+
+            foreach (var c in radioButton.Name)
+            {
+                if (char.IsDigit(c))
+                {
+                    CorrectAnswer = c - 48;
+                }
+            }
         }
 
         private void QuizBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,34 +72,66 @@ namespace Labb3_NET22.Views
             if (QuizBox.SelectedItem is Quiz)
             {
                 var quiz = QuizBox.SelectedItem as Quiz;
-                Title.Text = quiz.Title;
-                QuestionBox.ItemsSource = quiz.Questions;
+                _quizManager.CurrentQuiz = quiz;
+                Title.Text = _quizManager.CurrentQuiz.ToString();
+                QuestionBox.ItemsSource = _quizManager.CurrentQuiz.Questions;
             }
-            
         }
 
         private void QuestionBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (QuestionBox.SelectedItem is Question)
+            if (QuestionBox.SelectedItem is not DataModels.Question) return;
+            var question = QuestionBox.SelectedItem as Question;
+            Question.Text = question.Statement;
+            Answer1.Text = question.Answers[0];
+            Answer2.Text = question.Answers[1];
+            Answer3.Text = question.Answers[2];
+            Answer4.Text = question.Answers[3];
+            SelectedQuestion = question;
+            SelectedQuestionIndex = QuestionBox.SelectedIndex;
+            int elementOfRadioButton;
+            List<RadioButton> radioButtons = new List<RadioButton>()
+                { RadioButton0, RadioButton1, RadioButton2, RadioButton3 };
+            foreach (var radioButton in radioButtons.Where(radioButton => radioButton.Name.Contains(question.CorrectAnswer.ToString())))
             {
-                var question = QuestionBox.SelectedItem as Question;
-                Question.Text = question.Statement;
-                Answer1.Text = question.Answers[0];
-                Answer2.Text = question.Answers[1];
-                Answer3.Text = question.Answers[2];
-                Answer4.Text = question.Answers[3];
-                int elementOfRadioButton;
-                List<RadioButton> radioButtons = new List<RadioButton>()
-                    { RadioButton0, RadioButton1, RadioButton2, RadioButton3 };
-                foreach (var radioButton in radioButtons)
+                elementOfRadioButton = radioButtons.IndexOf(radioButton);
+                switch (elementOfRadioButton)
                 {
-                    if (radioButton.Name.Contains(question.CorrectAnswer.ToString()))
-                    {
-                        elementOfRadioButton = radioButtons.IndexOf(radioButton);
-                    }
+                    case 0:
+                        RadioButton0.IsChecked = true;
+                        break;
+                    case 1:
+                        RadioButton1.IsChecked = true;
+                        break;
+                    case 2:
+                        RadioButton2.IsChecked = true;
+                        break;
+                    case 3:
+                        RadioButton3.IsChecked = true;
+                        break;
                 }
-
             }
+            
+        }
+
+        private void RemoveQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            _quizManager.CurrentQuiz.RemoveQuestion(QuestionBox.SelectedIndex);
+            _quizManager.SaveQuiz();
+            QuestionBox.ItemsSource = _quizManager.CurrentQuiz.Questions;
+            EmptyTextFields();
+        }
+
+        private void UpdateQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            if (Title.Text == "" || Question.Text == "" || !radioButtonisChecked || Answer1.Text == "" ||
+                Answer2.Text == "" || Answer3.Text == "" || Answer4.Text == "") return;
+            SelectedQuestion = new Question(Question.Text, CorrectAnswer, Answer1.Text, Answer2.Text, Answer3.Text,
+                Answer4.Text);
+            _quizManager.CurrentQuiz.UpdateQuestion(SelectedQuestion, SelectedQuestionIndex);
+            _quizManager.SaveQuiz();
+            QuestionBox.ItemsSource = _quizManager.CurrentQuiz.Questions;
+
         }
     }
 }
