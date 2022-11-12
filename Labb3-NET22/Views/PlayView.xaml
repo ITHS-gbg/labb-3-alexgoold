@@ -42,9 +42,9 @@
             Name="LoadRandomQuizButton"
             Grid.Row="0"
             Margin="100,0,50,50"
-            Click="LoadRandomQuizButton_Click"
-            IsEnabled="False">
-            Load Random Quiz
+            Click="LoadDefaultQuizButton_Click"
+            >
+            Load Default Quiz
         </Button>
         <TextBlock
             Name="QuestionNumberInfo"

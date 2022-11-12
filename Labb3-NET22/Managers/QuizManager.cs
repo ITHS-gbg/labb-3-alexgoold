@@ -18,19 +18,7 @@ public class QuizManager
 
     public List<Quiz> QuizList = new();
 
-    public void LoadQuiz()
-    {
-
-        var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ @"\Quizes\"+ CurrentQuiz.Title);
-
-        string jsonstring = File.ReadAllText(FilePath);
-
-        CurrentQuiz = JsonConvert.DeserializeObject<Quiz>(jsonstring);
-
-
-    }
-
-    public async void SaveQuiz()
+   public async void SaveQuiz()
     {
         var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" + CurrentQuiz.Title + ".json");
 
@@ -46,11 +34,9 @@ public class QuizManager
         using StreamWriter sw = new(FilePath);
 
         await sw.WriteLineAsync(jsonstring);
-        
-
     }
 
-    public void CheckForQuizes()
+    public async Task CheckForQuizes()
     {
         var localAppFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ @"\Quizes");
         if (!File.Exists(localAppFolder))
@@ -62,8 +48,8 @@ public class QuizManager
         {
             var fileName = Path.GetFileName(file);
             CurrentQuiz = new Quiz(fileName);
-            var jsonString = File.ReadAllText(file);
-            var interimQuiz = JsonConvert.DeserializeObject<Quiz>(jsonString);
+            var jsonString = File.ReadAllTextAsync(file);
+            var interimQuiz = JsonConvert.DeserializeObject<Quiz>(await jsonString);
             foreach (var question in interimQuiz.Questions)
             {
                 CurrentQuiz.AddQuestion(question);

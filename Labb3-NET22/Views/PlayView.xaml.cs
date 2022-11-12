@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace Labb3_NET22.Views
     /// </summary>
     public partial class PlayView : UserControl
     {
-        QuizManager _quizManager = new();
+        private QuizManager _quizManager = new();
         private Question ActiveQuestion { get; set; }
         private int Score { get; set; }
         private int QuestionNumber { get; set; }
@@ -33,11 +34,7 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
-            _quizManager.CheckForQuizes();
-            if (_quizManager.QuizList.Count > 1)
-            {
-                LoadRandomQuizButton.IsEnabled = true;
-            }
+            
         }
 
         public void EnableButtons()
@@ -152,12 +149,9 @@ namespace Labb3_NET22.Views
             }
         }
 
-        private void LoadRandomQuizButton_Click(object sender, RoutedEventArgs e)
+        private void LoadDefaultQuizButton_Click(object sender, RoutedEventArgs e)
         {
-            var lengthOfList = _quizManager.QuizList.Count;
-            var randomQ = new Random().Next(0, lengthOfList);
-            _quizManager.CurrentQuiz = _quizManager.QuizList[randomQ];
-            
+            _quizManager.CurrentQuiz = _quizManager.CreateDefaultQuiz();
             SetInitialQuiz();
         }
     }

@@ -22,7 +22,7 @@ namespace Labb3_NET22.Views
     /// </summary>
     public partial class EditView : UserControl
     {
-        private QuizManager _quizManager = new QuizManager();
+        private QuizManager _quizManager = new();
 
         private Question SelectedQuestion { get; set; }
         public bool radioButtonisChecked = false;
@@ -32,7 +32,7 @@ namespace Labb3_NET22.Views
         public EditView()
         {
             InitializeComponent();
-            _quizManager.CheckForQuizes();
+            Task.Run(()=>_quizManager.CheckForQuizes());
             QuizBox.ItemsSource = _quizManager.QuizList;
         }
 
