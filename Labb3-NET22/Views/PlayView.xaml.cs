@@ -25,7 +25,7 @@ namespace Labb3_NET22.Views
     /// </summary>
     public partial class PlayView : UserControl
     {
-        QuizManager _quizManager = new QuizManager();
+        QuizManager _quizManager = new();
         private Question ActiveQuestion { get; set; }
         private int Score { get; set; }
         private int QuestionNumber { get; set; }
@@ -33,9 +33,8 @@ namespace Labb3_NET22.Views
         public PlayView()
         {
             InitializeComponent();
-            _quizManager.CreateDefaultQuiz();
             _quizManager.CheckForQuizes();
-            if (_quizManager.QuizList.Count > 0)
+            if (_quizManager.QuizList.Count > 1)
             {
                 LoadRandomQuizButton.IsEnabled = true;
             }
@@ -51,7 +50,7 @@ namespace Labb3_NET22.Views
         }
         public void SetInitialQuiz()
         {
-            if (_quizManager.CurrentQuiz.Questions.Count() != 0)
+            if (_quizManager.CurrentQuiz.Questions.Any())
             {
                 ActiveQuestion = _quizManager.CurrentQuiz.GetRandomQuestion();
                 TotalQuestions = _quizManager.CurrentQuiz.Questions.Count();
@@ -87,7 +86,7 @@ namespace Labb3_NET22.Views
         public void Button_OnClick(object sender, RoutedEventArgs e)
         {
 
-            Button button = e.Source as Button;
+            Button? button = e.Source as Button;
 
             if (CorrectOrNot.Text == "\nWrong!" || CorrectOrNot.Text == "\nCorrect!")
             {
@@ -98,7 +97,7 @@ namespace Labb3_NET22.Views
                 CorrectOrNot.Foreground = new SolidColorBrush(Colors.Green);
                 CorrectOrNot.Text = "\nCorrect!";
                 Score++;
-                ScoreText.Text = Score.ToString();
+                ScoreText.Text = $"{Score}/{TotalQuestions}";
             }
             else
             {
@@ -123,15 +122,21 @@ namespace Labb3_NET22.Views
                 var quizFinshedText = $"Quiz finished\nYou scored {Score}/{TotalQuestions}";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBox.Show(quizFinshedText, "Results", button);
+                if (_quizManager.QuizList.Count() == 1)
+                {
+                    LoadRandomQuizButton.IsEnabled = false;
+                }
             }
         }
 
         private async void LoadQuizFromFileButton_Click(object sender, RoutedEventArgs e)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            openFileDialog.Filter = "Json Files (*.json)|*.json";
+            var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            var openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                Filter = "Json Files (*.json)|*.json"
+            };
             if (openFileDialog.ShowDialog() == true)
             {
 
@@ -140,20 +145,19 @@ namespace Labb3_NET22.Views
                 var fileName = System.IO.Path.GetFileName(FilePath);
                 _quizManager.CurrentQuiz = new Quiz(fileName);
 
-                string jsonstring = await File.ReadAllTextAsync(FilePath);
+                var jsonstring = await File.ReadAllTextAsync(FilePath);
 
                 _quizManager.CurrentQuiz = JsonConvert.DeserializeObject<Quiz>(jsonstring, settings);
-
                 SetInitialQuiz();
             }
         }
 
         private void LoadRandomQuizButton_Click(object sender, RoutedEventArgs e)
         {
-            var ListOfQuizes = _quizManager.QuizList;
             var lengthOfList = _quizManager.QuizList.Count;
             var randomQ = new Random().Next(0, lengthOfList);
             _quizManager.CurrentQuiz = _quizManager.QuizList[randomQ];
+            
             SetInitialQuiz();
         }
     }

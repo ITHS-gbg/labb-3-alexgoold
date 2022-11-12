@@ -12,11 +12,7 @@ class PlayViewModel: ObservableObject
     private readonly NavigationManager _navigationManager;
     private QuizManager _quizManager;
 
-    private Quiz _quiz;
-
     public RelayCommand NavigateMenuCommand { get; }
-    public RelayCommand ShowQuestionText { get; }
-
 
     public PlayViewModel(NavigationManager navigationManager, QuizManager quizManager)
     {

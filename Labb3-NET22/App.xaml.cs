@@ -31,8 +31,13 @@ namespace Labb3_NET22
         {
             _quizManager = new QuizManager();
             _navigationManager.CurrentViewModel = new MenuViewModel(_navigationManager, _quizManager);
-
             var rootWindow = new RootWindow { DataContext = new ViewModelBase(_navigationManager, _quizManager) };
+            _quizManager.CheckForQuizes();
+            if (!_quizManager.QuizList.Any())
+            {
+                _quizManager.CurrentQuiz = _quizManager.CreateDefaultQuiz();
+                _quizManager.SaveQuiz();
+            }
             rootWindow.Show();
             base.OnStartup(e);
         }

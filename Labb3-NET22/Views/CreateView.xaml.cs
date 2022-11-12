@@ -63,7 +63,7 @@ namespace Labb3_NET22.Views
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             radioButtonisChecked = true;
-            RadioButton radioButton = e.Source as RadioButton;
+            RadioButton? radioButton = e.Source as RadioButton;
 
             foreach (var c in radioButton.Name)
             {
@@ -74,10 +74,10 @@ namespace Labb3_NET22.Views
             }
         }
 
-        private async void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
+        private void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
         {
             _quizManager.CurrentQuiz = QuizToSave;
-            await _quizManager.SaveQuiz();
+            _quizManager.SaveQuiz();
             Title.Text = String.Empty;
             EmptyTextFields();
         }

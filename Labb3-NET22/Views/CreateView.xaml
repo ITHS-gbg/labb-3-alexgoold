@@ -24,9 +24,8 @@
         <Image
             Grid.RowSpan="6"
             Grid.ColumnSpan="3"
-            Margin="20,20,20,20"
-            Opacity="0.2"
-            Source="\Resources/QmarkTornado.png"
+            Opacity="1"
+            Source="\Resources/Mark!.png"
             Stretch="Fill" />
         <TextBlock
             Grid.Row="0"
@@ -34,7 +33,7 @@
             Grid.Column="1"
             FontFamily="Bauhaus 93"
             FontSize="60"
-            Foreground="Black"
+            Foreground="Goldenrod"
             TextAlignment="Center">
             Add Quiz
         </TextBlock>
@@ -43,6 +42,7 @@
             Margin="30,30,170,20"
             FontSize="25"
             Text="Title:"
+            Foreground="White"
             TextAlignment="Center" />
         <TextBlock
             Grid.Row="1"
@@ -50,6 +50,7 @@
             Margin="10,30,80,20"
             FontSize="25"
             Text="Question:"
+            Foreground="White"
             TextAlignment="Left" />
         <TextBlock
             Grid.Row="2"
@@ -58,6 +59,7 @@
             FontSize="20"
             Text="Type in your answers in the boxes on the right and check the toggle for the correct answer"
             TextAlignment="Center"
+            Foreground="White"
             TextWrapping="Wrap" />
         <TextBox
             Name="Title"

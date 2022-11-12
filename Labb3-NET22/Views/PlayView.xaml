@@ -28,9 +28,8 @@
             Grid.RowSpan="6"
             Grid.Column="0"
             Grid.ColumnSpan="3"
-            Margin="20,20,20,20"
-            Opacity="0.2"
-            Source="/Resources/QmarkTornado.png"
+            Opacity="1"
+            Source="\Resources/Mark!.png"
             Stretch="Fill" />
         <Button
             Name="LoadQuizFromFileButton"
@@ -40,11 +39,11 @@
             Load From File
         </Button>
         <Button
-            IsEnabled="False"
             Name="LoadRandomQuizButton"
             Grid.Row="0"
             Margin="100,0,50,50"
-            Click="LoadRandomQuizButton_Click">
+            Click="LoadRandomQuizButton_Click"
+            IsEnabled="False">
             Load Random Quiz
         </Button>
         <TextBlock

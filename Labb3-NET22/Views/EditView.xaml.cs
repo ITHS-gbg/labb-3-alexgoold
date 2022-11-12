@@ -24,18 +24,15 @@ namespace Labb3_NET22.Views
     {
         private QuizManager _quizManager = new QuizManager();
 
-        Quiz QuizToSave = new Quiz();
         private Question SelectedQuestion { get; set; }
         public bool radioButtonisChecked = false;
         private int CorrectAnswer { get; set; }
         private int SelectedQuestionIndex { get; set; }
-        public bool quizHasTitle = false;
         
         public EditView()
         {
             InitializeComponent();
             _quizManager.CheckForQuizes();
-            _quizManager.QuizList.Add(_quizManager.CreateDefaultQuiz());
             QuizBox.ItemsSource = _quizManager.QuizList;
         }
 
@@ -50,7 +47,7 @@ namespace Labb3_NET22.Views
 
         private void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
         {
-          throw new NotImplementedException();
+           
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -69,6 +66,7 @@ namespace Labb3_NET22.Views
 
         private void QuizBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            DeleteQuizButton.IsEnabled = true;
             if (QuizBox.SelectedItem is Quiz)
             {
                 var quiz = QuizBox.SelectedItem as Quiz;
@@ -111,7 +109,9 @@ namespace Labb3_NET22.Views
                         break;
                 }
             }
-            
+            RemoveQuestion.IsEnabled = true;
+            UpdateQuestion.IsEnabled = true;
+
         }
 
         private void RemoveQuestion_Click(object sender, RoutedEventArgs e)
@@ -120,6 +120,8 @@ namespace Labb3_NET22.Views
             _quizManager.SaveQuiz();
             QuestionBox.ItemsSource = _quizManager.CurrentQuiz.Questions;
             EmptyTextFields();
+            RemoveQuestion.IsEnabled = false;
+            UpdateQuestion.IsEnabled = false;
         }
 
         private void UpdateQuestion_Click(object sender, RoutedEventArgs e)
@@ -131,7 +133,16 @@ namespace Labb3_NET22.Views
             _quizManager.CurrentQuiz.UpdateQuestion(SelectedQuestion, SelectedQuestionIndex);
             _quizManager.SaveQuiz();
             QuestionBox.ItemsSource = _quizManager.CurrentQuiz.Questions;
+        }
 
+        private void DeleteQuizButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _quizManager.DeleteQuiz();
+            _quizManager.QuizList.Remove(_quizManager.CurrentQuiz);
+            QuizBox.Items.Refresh();
+            QuestionBox.ItemsSource = null;
+            EmptyTextFields();
+            DeleteQuizButton.IsEnabled = false;
         }
     }
 }

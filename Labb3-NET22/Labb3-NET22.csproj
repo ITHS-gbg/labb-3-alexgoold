@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Resources\General Trivia.json" />
+    <None Remove="Resources\Mark!.png" />
+    <None Remove="Resources\QMark.png" />
     <None Remove="Resources\QmarkTornado.png" />
     <None Remove="Resources\Questionmarks.png" />
   </ItemGroup>
@@ -22,6 +24,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\General Trivia.json" />
+    <Resource Include="Resources\Mark!.png" />
     <Resource Include="Resources\QmarkTornado.png" />
   </ItemGroup>
 

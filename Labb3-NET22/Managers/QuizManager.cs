@@ -16,7 +16,7 @@ public class QuizManager
     
     public Quiz CurrentQuiz { get; set; }
 
-    public List<Quiz> QuizList = new List<Quiz>();
+    public List<Quiz> QuizList = new();
 
     public void LoadQuiz()
     {
@@ -30,7 +30,7 @@ public class QuizManager
 
     }
 
-    public async Task SaveQuiz()
+    public async void SaveQuiz()
     {
         var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" + CurrentQuiz.Title + ".json");
 
@@ -43,7 +43,7 @@ public class QuizManager
 
         var jsonstring = JsonConvert.SerializeObject(CurrentQuiz);
 
-        using StreamWriter sw = new StreamWriter(FilePath);
+        using StreamWriter sw = new(FilePath);
 
         await sw.WriteLineAsync(jsonstring);
         
@@ -72,6 +72,19 @@ public class QuizManager
         }
     }
 
+    public void DeleteQuiz()
+    {
+        var FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" + CurrentQuiz.Title + ".json");
+
+        if (CurrentQuiz.Title.Contains(".json"))
+        {
+            FilePath =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Quizes\" +
+                             CurrentQuiz.Title);
+        }
+        File.Delete(FilePath);
+        QuizList.Remove(CurrentQuiz);
+    }
     public Quiz CreateDefaultQuiz()
     {
         var defaultQuiz = new Quiz();
@@ -142,11 +155,11 @@ public class QuizManager
                                           ""CorrectAnswer"": 3
                                         }
                                       ],
-                                      ""Title"": ""General Trivia"",
+                                      ""Title"": ""Default Quiz"",
                                       ""ElementOfRandomQuestion"": 0
                                     }";
         defaultQuiz = JsonConvert.DeserializeObject<Quiz>(defaultQuizJsonString);
-        Quiz defaultQuizWithTitle = new Quiz("General Trivia");
+        Quiz defaultQuizWithTitle = new("Default Quiz");
         foreach (var question in defaultQuiz.Questions)
         {
             defaultQuizWithTitle.AddQuestion(question);

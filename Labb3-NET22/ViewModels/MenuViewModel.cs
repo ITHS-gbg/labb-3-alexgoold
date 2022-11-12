@@ -19,6 +19,7 @@ class MenuViewModel:ObservableObject
         public MenuViewModel(NavigationManager navigationManager, QuizManager quizManager)
         {
             _navigationManager = navigationManager;
+            _quizManager = quizManager;
             NavigatePlayCommand = new RelayCommand(() => _navigationManager.CurrentViewModel = new PlayViewModel(_navigationManager, _quizManager));
             NavigateCreateCommand = new RelayCommand(() => _navigationManager.CurrentViewModel = new CreateViewModel(_navigationManager, _quizManager));
             NavigateEditCommand = new RelayCommand(() => _navigationManager.CurrentViewModel = new EditViewModel(_navigationManager, _quizManager));

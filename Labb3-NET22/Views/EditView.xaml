@@ -25,34 +25,26 @@
             Grid.RowSpan="6"
             Grid.ColumnSpan="3"
             Stretch="Fill"
-            Opacity="0.2"
-            Margin="20,20,20,20"
-            Source="\Resources/QmarkTornado.png"></Image>
+            Opacity="1"
+            Source="\Resources/Mark!.png"></Image>
         <TextBlock Text="List Of Quizes" Margin="30,35,160,30" Background="White"></TextBlock>
         <TextBlock Grid.Row="2" Text="List Of Questions" Margin="30,15,140,50" Background="White"></TextBlock>
         <ListBox Grid.Row="0" Name="QuizBox" SelectionChanged="QuizBox_OnSelectionChanged" Margin="30,55,50,80" Grid.RowSpan="3"></ListBox>
         <ListBox Grid.Row="2" Name="QuestionBox" SelectionChanged="QuestionBox_OnSelectionChanged" Margin="30,35,50,5" Grid.RowSpan="2"></ListBox>
-        <TextBlock Margin="30,30,170,20" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Title:" FontSize="25"></TextBlock>
-        <TextBlock Margin="10,30,80,20" Grid.Row="1" Grid.Column="1" Text="Question:" TextAlignment="Left" FontSize="25"></TextBlock>
+        <TextBlock Margin="30,30,170,20" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Title:" Foreground="White" FontSize="25"></TextBlock>
+        <TextBlock Margin="10,30,80,20" Grid.Row="1" Grid.Column="1" Text="Question:" TextAlignment="Left" Foreground="White" FontSize="25"></TextBlock>
         <TextBox Name="Title" Grid.Row="0" Grid.Column="1" Margin="100,30,10,20" FontSize="25" Text="" ></TextBox>
         <TextBox Name="Question" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="130,30,40,70" FontSize="18" TextWrapping="Wrap" Text="" ></TextBox>
         <TextBox Name="Answer1" Grid.Row="2" Grid.Column="1" Margin="30,40,25,0"/>
         <TextBox Name="Answer2" Grid.Row="3" Grid.Column="1" Margin="30,40,25,0"/>
-        <TextBox Name="Answer3" Grid.Row="3" Grid.Column="2" Margin="30,40,25,0"/>
-        <TextBox Name="Answer4" Grid.Row="2" Grid.Column="2" Margin="30,40,25,0"/>
+        <TextBox Name="Answer3" Grid.Row="2" Grid.Column="2" Margin="30,40,25,0"/>
+        <TextBox Name="Answer4" Grid.Row="3" Grid.Column="2" Margin="30,40,25,0"/>
         <RadioButton Name="RadioButton0"  Grid.Row="2" Grid.Column="1" Margin="0,60,240,0" Checked="RadioButton_Checked" />
         <RadioButton Name="RadioButton1" Grid.Row="3" Grid.Column="1" Margin="0,60,240,0" Checked="RadioButton_Checked" />
         <RadioButton Name="RadioButton2" Grid.Row="2" Grid.Column="2" Margin="0,60,240,0" Checked="RadioButton_Checked" />
         <RadioButton Name="RadioButton3" Grid.Row="3" Grid.Column="2" Margin="0,60,240,0" Checked="RadioButton_Checked" />
-        <Button
-            Name="FinaliseAndSaveButton"
-            Grid.Row="4"
-            Grid.Column="2"
-            Margin="150,40,5,5" Click="FinaliseAndSaveButton_Click">
-            Finalise and Save
-        </Button>
-        <Button Name="RemoveQuestion" Grid.Column="1" Grid.Row="4" Margin="150,40,5,5" Click="RemoveQuestion_Click">Remove Question</Button>
-        <Button Name="UpdateQuestion"  Grid.Column="2" Grid.Row="4" Margin="5,40,150,5" Click="UpdateQuestion_Click">Update Question</Button>
+        <Button Name="RemoveQuestion" Grid.Column="2" Grid.Row="4" Margin="150,40,5,5" Click="RemoveQuestion_Click" IsEnabled="False">Remove Question</Button>
+        <Button Name="UpdateQuestion"  Grid.Column="2" Grid.Row="4" Margin="5,40,150,5" Click="UpdateQuestion_Click" IsEnabled="False">Update Question</Button>
         <Button
             Name="MenuButton"
             Grid.Row="4"
@@ -61,5 +53,6 @@
             Command="{Binding NavigateMenuCommand}">
             Main Menu
         </Button>
+        <Button Grid.Row="0" Grid.Column="0" Margin="140,35,50,30" Content="Delete Quiz" IsEnabled="False" Name="DeleteQuizButton" FontSize="10"  Click="DeleteQuizButton_OnClick" />
     </Grid>
 </UserControl>
