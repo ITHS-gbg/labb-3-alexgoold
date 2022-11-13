@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Labb3_NET22.DataModels;
 using Labb3_NET22.Managers;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace Labb3_NET22.Views
 {
@@ -43,11 +46,6 @@ namespace Labb3_NET22.Views
             Answer2.Text = String.Empty;
             Answer3.Text = String.Empty;
             Answer4.Text = String.Empty;
-        }
-
-        private void FinaliseAndSaveButton_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -144,5 +142,7 @@ namespace Labb3_NET22.Views
             EmptyTextFields();
             DeleteQuizButton.IsEnabled = false;
         }
-    }
+
+	
+	}
 }

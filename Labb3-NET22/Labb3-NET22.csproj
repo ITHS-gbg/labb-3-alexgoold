@@ -12,7 +12,6 @@
     <None Remove="Resources\Mark!.png" />
     <None Remove="Resources\QMark.png" />
     <None Remove="Resources\Questionmarks.png" />
-    <None Remove="Resources\QuizForTexting.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\QuizForTexting.json" />
     <Resource Include="Resources\Mark!.png" />
   </ItemGroup>
 
